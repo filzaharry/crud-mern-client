@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`crud-mern-cl
 
 ## Getting Started
 
-First, run the development server:
+First, installing modules:
 
 ```bash
 npm run install
@@ -10,9 +10,17 @@ npm run install
 npm run dev
 ```
 
-Second, create .env file copy this code
+Second, create .env.local file place this code below
 ```bash
-API="http://localhost:9000"
+NEXT_PUBLIC_API="http://localhost:9000"
+```
+
+And Last, run the development server:
+
+```bash
+npm run dev
+# OR
+yarn dev
 ```
 
 
