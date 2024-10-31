@@ -18,6 +18,22 @@ const Home = () => {
   const [idUpdate, setIdUpdate] = useState('');
   // 
   const handleLogout = async (e: any) => {
+    try {
+      const res = await fetch(API+'/user/logout', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await res.json();
+      window.location.href = "/login"
+      alert('success logout')
+
+      if (!res.ok) throw new Error(data.message);
+    } catch (error: any) {
+      setResponseMessage(error.message);
+    }
   }
   const handleDelete = async (id: string) => {
     try {
@@ -33,13 +49,33 @@ const Home = () => {
 
       const data = await res.json();
       window.location.href = "/home"
+      alert('success delete user')
 
       if (!res.ok) throw new Error(data.message);
     } catch (error: any) {
       setResponseMessage(error.message);
     }
   }
+  const handleSendEmail = async (email: string) => {
+    try {
+      // after send , please check mailtrap dashboard
+      const res = await fetch(API+'/user/'+email, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
+      const data = await res.json();
+      window.location.href = "/home"
+      alert('success send email')
+
+      if (!res.ok) throw new Error(data.message);
+    } catch (error: any) {
+      setResponseMessage(error.message);
+    }
+  }
   const handleLoadData = async () => {
     try {
       // const token= localStorage.getItem('sessionToken')
@@ -60,7 +96,6 @@ const Home = () => {
       setResponseMessage(error.message);
     }
   }
-
   const handleUpdate = (data: any) => {
     const dataEdit = {
       username: data.username,
@@ -114,7 +149,7 @@ const Home = () => {
                       {item.email}
                     </p>
                     <div className="flex flex-row">
-                      <span className='ml-2 text-xs bg-purple-500 text-white font-semibold p-2 rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-400'>Send Email</span>
+                      <span onClick={() => handleSendEmail(item.email)} className='ml-2 text-xs bg-purple-500 text-white font-semibold p-2 rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-400'>Send Email</span>
                       <span onClick={() => handleUpdate(item)} className='ml-2 text-xs bg-yellow-500 text-white font-semibold p-2 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400'>Edit</span>
                       <span onClick={() => handleDelete(item._id)} className='ml-2 text-xs bg-red-500 text-white font-semibold p-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400'>Delete</span>
                     </div>
