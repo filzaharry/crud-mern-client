@@ -19,7 +19,7 @@ const Home = () => {
   // 
   const handleLogout = async (e: any) => {
     try {
-      const res = await fetch(API+'/user/logout', {
+      const res = await fetch(API+'/auth/logout', {
         method: 'GET',
         credentials: 'include',
         headers: {
